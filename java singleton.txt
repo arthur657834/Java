@@ -1,0 +1,85 @@
+单实例：
+
+class Singleton
+{
+	//使用一个变量来缓存曾经创建的实例
+	private static Singleton instance;
+	//将构造器使用private修饰，隐藏该构造器
+	private Singleton(){}
+	//提供一个静态方法，用于返回Singleton实例
+	//该方法可以加入自定义的控制，保证只产生一个Singleton对象
+	public static Singleton getInstance()
+	{
+		//如果instance为null，表明还不曾创建Singleton对象
+		//如果instance不为null，则表明已经创建了Singleton对象，将不会执行该方法
+		if (instance == null)
+		{
+			//创建一个Singleton对象，并将其缓存起来
+			instance = new Singleton();
+		}
+		return instance;
+	}
+}
+public class TestSingleton
+{
+	public static void main(String[] args)
+	{
+		//创建Singleton对象不能通过构造器，只能通过getInstance方法
+		Singleton s1 = Singleton.getInstance();
+		Singleton s2 = Singleton.getInstance();
+		//将输出true
+		System.out.println(s1 == s2);
+	}
+}
+
+第一种形式:懒汉式，也是常用的形式。
+
+public class SingletonClass{
+    private static SingletonClass instance=null;
+    public static　synchronized　SingletonClass getInstance()
+    {
+        if(instance==null)
+        {
+               instance=new SingletonClass();
+        }
+        return instance;
+    }
+    private SingletonClass(){
+    }
+}
+第二种形式:饿汉式
+
+//对第一行static的一些解释
+// java允许我们在一个类里面定义静态类。比如内部类（nested class）。
+//把nested class封闭起来的类叫外部类。
+//在java中，我们不能用static修饰顶级类（top level class）。
+//只有内部类可以为static。
+public static class Singleton{
+    //在自己内部定义自己的一个实例，只供内部调用
+    private static final Singleton instance = new Singleton();
+    private Singleton(){
+        //do something
+    }
+    //这里提供了一个供外部访问本class的静态方法，可以直接访问
+    public static Singleton getInstance(){
+        return instance;
+    }
+}
+第三种形式: 双重锁的形式。
+
+public static class Singleton{
+    private static Singleton instance=null;
+    private Singleton(){
+        //do something
+    }
+    public static Singleton getInstance(){
+        if(instance==null){
+            synchronized(Singleton.class){
+                if(null==instance){
+                    instance=new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+}

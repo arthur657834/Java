@@ -1,0 +1,82 @@
+day1:
+下面的注释记得写,养成良好的编码习惯
+
+/**
+ * Description:
+ * <br/>Copyright (C), 2005-2008, Yeeku.H.Lee
+ * <br/>This program is protected by copyright laws.
+ * <br/>Program Name:
+ * <br/>Date:
+ * @author  Yeeku.H.Lee kongyeeku@163.com
+ * @version  1.0
+ */
+ 
+ 
+/**
+ * 一个得到打招呼字符串的方法。
+ * @param name 该参数指定向谁打招呼。
+ * @return 返回打招呼的字符串。
+ */
+	 
+javadoc -d apidoc -windowtitle test -doctitle test2 -header test3 test.java
+
+protected 修饰的方法通常是希望子类重写这个方法
+
+java.sql.Date  使用java.sql下的这个Date类
+
+构造器是一个特殊的方法，用于创建类的实例
+
+if (object instanceof String) 判断是否可以强制转换数据类型
+
+Bird的写法叫组合,没见过，学习一下
+
+class Animal
+{
+	private void beat()
+	{
+		System.out.println("心脏跳动...");
+	}
+	public void breath()
+	{
+		beat();
+		System.out.println("吸一口气，吐一口气，呼吸中...");
+	}
+}
+class Bird
+{
+	//将原来的父类嵌入原来的子类，作为子类的一个组合成分
+	private Animal a;
+	public Bird(Animal a)
+	{
+		this.a = a;
+	}
+	//重新定义一个自己的breath方法
+	public void breath()
+	{
+		//直接复用Animal提供的breath方法来实现Bird的breath方法。
+		a.breath();
+	}
+
+	public void fly()
+	{
+		System.out.println("我在天空自在的飞翔...");
+	}
+}
+
+day2:
+
+好的习惯：
+把字符串常量放在前面
+if ("literal".equals(variable)) { ... }
+if (string.indexOf(character) >= 0) { ... } //不要相信“-1”
+if (5 = variable) { ... }
+if (array != null && array.length > 0) { ... }
+
+抽象类不能用于创建实例，只能被当作父类被其他子类继承
+
+
+
+
+
+
+	 
