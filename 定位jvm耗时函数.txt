@@ -1,0 +1,11 @@
+top 查看最耗cpu的进程java的pid
+
+top -Hp pid  查看最耗cpu的java线程pid
+
+把线程id转成16进制
+printf "%x\n" java线程的pid
+
+jstack java的pid > test.tmp
+
+grep 16进制 test.tmp 可以看到函数名
+
