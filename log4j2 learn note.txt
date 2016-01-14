@@ -1,0 +1,77 @@
+private static Logger logger = LogManager.getLogger(MyApp.class.getName());
+
+日志级别：
+trace<debug<info<warn<error<fatal
+
+log4j2.java
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class log4j2 {
+	static Logger logger = LogManager.getLogger(log4j2.class.getName());
+
+	public boolean hello() {
+		logger.entry(); // trace级别的信息，单独列出来是希望你在某个方法或者程序逻辑开始的时候调用，和logger.trace("entry")基本一个意思
+		logger.error("Did it again!"); // error级别的信息，参数就是你输出的信息
+		logger.info("我是info信息"); // info级别的信息
+		logger.debug("我是debug信息");
+		logger.warn("我是warn信息");
+		logger.fatal("我是fatal信息");
+		logger.log(Level.DEBUG, "我是debug信息"); // 这个就是制定Level类型的调用：谁闲着没事调用这个，也不一定哦！
+		logger.exit(); // 和entry()对应的结束方法，和logger.trace("exit");一个意思
+		return false;
+	}
+	public final static void main(String[] args) throws Exception {
+		log4j2 x=new log4j2();
+		x.hello();	
+	}
+}
+
+
+log4j2.xml 解析
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </appenders>
+    <loggers>
+        <!--我们只让这个logger输出trace信息，其他的都是error级别-->
+        <!--
+        additivity开启的话，由于这个logger也是满足root的，所以会被打印两遍。
+        不过root logger 的level是error，为什么Bar 里面的trace信息也被打印两遍呢
+        -->
+        <logger name="cn.lsw.base.log4j2.Hello" level="trace" additivity="false">
+            <appender-ref ref="Console"/>
+        </logger>
+        <root level="error">
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+</configuration>
+
+<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+<ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+
+<File name="log" fileName="log/test.log" append="false">
+    <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+</File>	
+<!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+<RollingFile name="RollingFile" fileName="logs/app.log" filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+    <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+    <SizeBasedTriggeringPolicy size="50MB"/>
+</RollingFile>
+	
+configuration:根节点
+appenders:输出
+console:输出控制台
+PatternLayout:输出格式
+appender-ref:引用的值是上面每个appender的name，而不是节点名称
+name的机制:包名重复输出两边数据
+additivity="false":包名重复不输出两遍日志
+
+
+
