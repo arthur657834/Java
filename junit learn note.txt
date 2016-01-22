@@ -4,6 +4,9 @@ public void testAdd() {
     assertEquals(5, calculator.getResult());//第一个参数填写期待结果，第二个参数填写实际结果
 }
 
+Assert类里面有很多assert方法，包括：assertEquals()， assertNotNull()，assertTtrue()，assertFalse()，assertThat()等
+	
+
 @BeforeClass：针对所有测试，只执行一次，且必须为static void
 @Before：初始化方法
 @Test：测试方法，在这里可以测试期望异常和超时时间   
