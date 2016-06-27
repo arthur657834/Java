@@ -1,85 +1,53 @@
-单实例：
-
-class Singleton
-{
-	//使用一个变量来缓存曾经创建的实例
-	private static Singleton instance;
-	//将构造器使用private修饰，隐藏该构造器
-	private Singleton(){}
-	//提供一个静态方法，用于返回Singleton实例
-	//该方法可以加入自定义的控制，保证只产生一个Singleton对象
-	public static Singleton getInstance()
-	{
-		//如果instance为null，表明还不曾创建Singleton对象
-		//如果instance不为null，则表明已经创建了Singleton对象，将不会执行该方法
-		if (instance == null)
-		{
-			//创建一个Singleton对象，并将其缓存起来
-			instance = new Singleton();
-		}
-		return instance;
-	}
-}
-public class TestSingleton
-{
-	public static void main(String[] args)
-	{
-		//创建Singleton对象不能通过构造器，只能通过getInstance方法
-		Singleton s1 = Singleton.getInstance();
-		Singleton s2 = Singleton.getInstance();
-		//将输出true
-		System.out.println(s1 == s2);
-	}
-}
-
-第一种形式:懒汉式，也是常用的形式。
-
-public class SingletonClass{
-    private static SingletonClass instance=null;
-    public static　synchronized　SingletonClass getInstance()
-    {
-        if(instance==null)
-        {
-               instance=new SingletonClass();
-        }
-        return instance;
-    }
-    private SingletonClass(){
-    }
-}
-第二种形式:饿汉式
-
-//对第一行static的一些解释
-// java允许我们在一个类里面定义静态类。比如内部类（nested class）。
-//把nested class封闭起来的类叫外部类。
-//在java中，我们不能用static修饰顶级类（top level class）。
-//只有内部类可以为static。
-public static class Singleton{
-    //在自己内部定义自己的一个实例，只供内部调用
-    private static final Singleton instance = new Singleton();
-    private Singleton(){
-        //do something
-    }
-    //这里提供了一个供外部访问本class的静态方法，可以直接访问
-    public static Singleton getInstance(){
-        return instance;
-    }
-}
-第三种形式: 双重锁的形式。
-
-public static class Singleton{
-    private static Singleton instance=null;
-    private Singleton(){
-        //do something
-    }
-    public static Singleton getInstance(){
-        if(instance==null){
-            synchronized(Singleton.class){
-                if(null==instance){
-                    instance=new Singleton();
-                }
-            }
-        }
-        return instance;
-    }
-}
+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
+FOSk6J1kYBk=

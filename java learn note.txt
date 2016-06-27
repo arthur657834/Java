@@ -1,82 +1,37 @@
-day1:
-下面的注释记得写,养成良好的编码习惯
-
-/**
- * Description:
- * <br/>Copyright (C), 2005-2008, Yeeku.H.Lee
- * <br/>This program is protected by copyright laws.
- * <br/>Program Name:
- * <br/>Date:
- * @author  Yeeku.H.Lee kongyeeku@163.com
- * @version  1.0
- */
- 
- 
-/**
- * 一个得到打招呼字符串的方法。
- * @param name 该参数指定向谁打招呼。
- * @return 返回打招呼的字符串。
- */
-	 
-javadoc -d apidoc -windowtitle test -doctitle test2 -header test3 test.java
-
-protected 修饰的方法通常是希望子类重写这个方法
-
-java.sql.Date  使用java.sql下的这个Date类
-
-构造器是一个特殊的方法，用于创建类的实例
-
-if (object instanceof String) 判断是否可以强制转换数据类型
-
-Bird的写法叫组合,没见过，学习一下
-
-class Animal
-{
-	private void beat()
-	{
-		System.out.println("心脏跳动...");
-	}
-	public void breath()
-	{
-		beat();
-		System.out.println("吸一口气，吐一口气，呼吸中...");
-	}
-}
-class Bird
-{
-	//将原来的父类嵌入原来的子类，作为子类的一个组合成分
-	private Animal a;
-	public Bird(Animal a)
-	{
-		this.a = a;
-	}
-	//重新定义一个自己的breath方法
-	public void breath()
-	{
-		//直接复用Animal提供的breath方法来实现Bird的breath方法。
-		a.breath();
-	}
-
-	public void fly()
-	{
-		System.out.println("我在天空自在的飞翔...");
-	}
-}
-
-day2:
-
-好的习惯：
-把字符串常量放在前面
-if ("literal".equals(variable)) { ... }
-if (string.indexOf(character) >= 0) { ... } //不要相信“-1”
-if (5 = variable) { ... }
-if (array != null && array.length > 0) { ... }
-
-抽象类不能用于创建实例，只能被当作父类被其他子类继承
-
-
-
-
-
-
-	 
+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
+36F92QtnliA/O8C1tFVHPg==

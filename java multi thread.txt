@@ -1,269 +1,132 @@
--Xms64M -Xmx512M -Xss200K
-
--Xms64M：设置JVM初始内存为64M。
--Xmx512M：设置JVM最大可用内存512M。
--Xss200K：设置单个线程的大小为200K。
-
-实现Runnable接口比继承Thread类所具有的优势：
-
-1）：适合多个相同的程序代码的线程去处理同一个资源
-
-2）：可以避免java中的单继承的限制
-
-3）：增加程序的健壮性，代码可以被多个线程共享，代码和数据独立。
-
-demo.isAlive()
-demo.join();  //强制执行demo
-demo.interrupt(); //2s后中断线程
-demo.setDaemon(true);//设置一个后台线程,即使java进程消失了，此后台线程依然能够继续运行
-Thread h3=new Thread(new hello(),"C");h3.setPriority(8);//主线程的优先级是5,不要误以为优先级越高就先执行。谁先执行还是取决于谁先去的CPU的资源
-Thread.currentThread().yield();//将一个线程的操作暂时交给其他线程执行
-
-
-方法1：
-class hello extends Thread {
-    public void run() {
-        for (int i = 0; i < 7; i++) {
-            if (count > 0) {
-                System.out.println("count= " + count--);
-            }
-        }
-    }
- 
-    public static void main(String[] args) {
-        hello h1 = new hello();
-        hello h2 = new hello();
-        hello h3 = new hello();
-        h1.start();
-        h2.start();
-        h3.start();
-    }
- 
-    private int count = 5;
-}
-
-方法2：
-class MyThread implements Runnable{
- 
-    private int ticket = 5;  //5张票
- 
-    public void run() {
-        for (int i=0; i<=20; i++) {
-            if (this.ticket > 0) {
-                System.out.println(Thread.currentThread().getName()+ "正在卖票"+this.ticket--);
-            }
-        }
-    }
-}
-public class lzwCode {
-     
-    public static void main(String [] args) {
-        MyThread my = new MyThread();
-        new Thread(my, "1号窗口").start();
-        new Thread(my, "2号窗口").start();
-        new Thread(my, "3号窗口").start();
-    }
-}
-
-线程同步：当多个线程共享一个资源的时候需要进行同步，但是过多的同步可能导致死锁
-
-同步代码块：
-class hello implements Runnable {
-    public void run() {
-        for(int i=0;i<10;++i){
-            synchronized (this) {
-                if(count>0){
-                    try{
-                        Thread.sleep(1000);
-                    }catch(InterruptedException e){
-                        e.printStackTrace();
-                    }
-                    System.out.println(count--);
-                }
-            }
-        }
-    }
- 
-    public static void main(String[] args) {
-        hello he=new hello();
-        Thread h1=new Thread(he);
-        Thread h2=new Thread(he);
-        Thread h3=new Thread(he);
-        h1.start();
-        h2.start();
-        h3.start();
-    }
-    private int count=5;
-}
-
-同步方法：
-class hello implements Runnable {
-    public void run() {
-        for (int i = 0; i < 10; ++i) {
-            sale();
-        }
-    }
- 
-    public synchronized void sale() {
-        if (count > 0) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(count--);
-        }
-    }
- 
-    public static void main(String[] args) {
-        hello he = new hello();
-        Thread h1 = new Thread(he);
-        Thread h2 = new Thread(he);
-        Thread h3 = new Thread(he);
-        h1.start();
-        h2.start();
-        h3.start();
-    }
- 
-    private int count = 5;
-}
-
-线程等待与唤醒
-class Info {
-     
-    public String getName() {
-        return name;
-    }
- 
-    public void setName(String name) {
-        this.name = name;
-    }
- 
-    public int getAge() {
-        return age;
-    }
- 
-    public void setAge(int age) {
-        this.age = age;
-    }
- 
-    public synchronized void set(String name, int age){
-        if(!flag){
-            try{
-                super.wait();
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        this.name=name;
-        try{
-            Thread.sleep(100);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.age=age;
-        flag=false;
-        super.notify();
-    }
-     
-    public synchronized void get(){
-        if(flag){
-            try{
-                super.wait();
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-         
-        try{
-            Thread.sleep(100);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(this.getName()+"<===>"+this.getAge());
-        flag=true;
-        super.notify();
-    }
-    private String name = "Rollen";
-    private int age = 20;
-    private boolean flag=false;
-}
- 
-/**
- * 生产者
- * */
-class Producer implements Runnable {
-    private Info info = null;
- 
-    Producer(Info info) {
-        this.info = info;
-    }
- 
-    public void run() {
-        boolean flag = false;
-        for (int i = 0; i < 25; ++i) {
-            if (flag) {
-                 
-                this.info.set("Rollen", 20);
-                flag = false;
-            } else {
-                this.info.set("ChunGe", 100);
-                flag = true;
-            }
-        }
-    }
-}
- 
-/**
- * 消费者类
- * */
-class Consumer implements Runnable {
-    private Info info = null;
- 
-    public Consumer(Info info) {
-        this.info = info;
-    }
- 
-    public void run() {
-        for (int i = 0; i < 25; ++i) {
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            this.info.get();
-        }
-    }
-}
- 
-/**
- * 测试类
- * */
-class hello {
-    public static void main(String[] args) {
-        Info info = new Info();
-        Producer pro = new Producer(info);
-        Consumer con = new Consumer(info);
-        new Thread(pro).start();
-        new Thread(con).start();
-    }
-}
-
-向线程传递数据的三种方法：
-1.通过构造方法传递数据 
-  public MyThread1(String name)
-    {
-        this.name = name;
-    }
-Thread thread = new MyThread1("world");
-	
-2.通过变量和方法传递数据	
-	  public void setName(String name)
-    {
-        this.name = name;
-    }
-myThread.setName("world");
-
-	
-
-
+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
+1WLCQNoqsezjgB+eP7F24uqrg4xEGWOt

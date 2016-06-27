@@ -1,77 +1,66 @@
-private static Logger logger = LogManager.getLogger(MyApp.class.getName());
-
-日志级别：
-trace<debug<info<warn<error<fatal
-
-log4j2.java
-
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-public class log4j2 {
-	static Logger logger = LogManager.getLogger(log4j2.class.getName());
-
-	public boolean hello() {
-		logger.entry(); // trace级别的信息，单独列出来是希望你在某个方法或者程序逻辑开始的时候调用，和logger.trace("entry")基本一个意思
-		logger.error("Did it again!"); // error级别的信息，参数就是你输出的信息
-		logger.info("我是info信息"); // info级别的信息
-		logger.debug("我是debug信息");
-		logger.warn("我是warn信息");
-		logger.fatal("我是fatal信息");
-		logger.log(Level.DEBUG, "我是debug信息"); // 这个就是制定Level类型的调用：谁闲着没事调用这个，也不一定哦！
-		logger.exit(); // 和entry()对应的结束方法，和logger.trace("exit");一个意思
-		return false;
-	}
-	public final static void main(String[] args) throws Exception {
-		log4j2 x=new log4j2();
-		x.hello();	
-	}
-}
-
-
-log4j2.xml 解析
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration status="OFF">
-    <appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </Console>
-    </appenders>
-    <loggers>
-        <!--我们只让这个logger输出trace信息，其他的都是error级别-->
-        <!--
-        additivity开启的话，由于这个logger也是满足root的，所以会被打印两遍。
-        不过root logger 的level是error，为什么Bar 里面的trace信息也被打印两遍呢
-        -->
-        <logger name="cn.lsw.base.log4j2.Hello" level="trace" additivity="false">
-            <appender-ref ref="Console"/>
-        </logger>
-        <root level="error">
-            <appender-ref ref="Console"/>
-        </root>
-    </loggers>
-</configuration>
-
-<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
-<ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
-
-<File name="log" fileName="log/test.log" append="false">
-    <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
-</File>	
-<!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
-<RollingFile name="RollingFile" fileName="logs/app.log" filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-    <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
-    <SizeBasedTriggeringPolicy size="50MB"/>
-</RollingFile>
-	
-configuration:根节点
-appenders:输出
-console:输出控制台
-PatternLayout:输出格式
-appender-ref:引用的值是上面每个appender的name，而不是节点名称
-name的机制:包名重复输出两边数据
-additivity="false":包名重复不输出两遍日志
-
-
-
+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
+fPgRi/abfnbIpuV6pNvUNnNb4/8XBi2P

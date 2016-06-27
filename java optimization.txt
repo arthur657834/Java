@@ -1,62 +1,50 @@
-http://blog.163.com/bobile45@126/blog/static/9606199220139303343415/
-
-定位最耗时的函数:
-top 查看最耗cpu的进程java的pid
-top -Hp pid  查看最耗cpu的java线程pid
-把线程id转成16进制
-printf "%x\n" java线程的pid
-jstack java的pid > test.tmp
-grep 16进制 test.tmp 可以看到函数名
-
-jmap -permstat pid 如果运行在64位JVM上，可能需要指定-J-d64命令选项参数。
-jmap -heap pid查看进程堆内存使用情况
-jmap -histo[:live] pid查看堆内存中的对象数目、大小统计直方图,live则只统计活对象
-	class name是对象类型，说明如下
-	B  byte
-	C  char
-	D  double
-	F  float
-	I  int
-	J  long
-	Z  boolean
-	[  数组，如[I表示int[]
-	[L+类名 其他对象
-
-jmap把进程内存使用情况dump到文件中，再用jhat分析查看
-jmap -dump:format=b,file=dumpFileName pid
-jhat -port 9998 /tmp/dump.dat
-注意如果Dump文件太大，可能需要加上-J-Xmx512m这种参数指定最大堆内存，即jhat -J-Xmx512m -port 9998 /tmp/dump.dat。然后就可以在浏览器中输入主机地址:9998查看了
-jstat -gc 21711 250 4 采样时间间隔为250ms，采样数为4：
-	S0C、S1C、S0U、S1U：Survivor 0/1区容量（Capacity）和使用量（Used）
-	EC、EU：Eden区容量和使用量
-	OC、OU：年老代容量和使用量
-	PC、PU：永久代容量和使用量
-	YGC、YGT：年轻代GC次数和GC耗时
-	FGC、FGCT：Full GC次数和Full GC耗时
-	GCT：GC总耗时
-	
-jstat -class 25917 
-显示加载class的数量，及所占空间等信息
-
-jstat -compiler 25917
-显示VM实时编译的数量等信息。
-
-jstat -gccapacity 25917
-可以显示，VM内存中三代（young,old,perm）对象的使用和占用大小，如：PGCMN显示的是最小perm的内存使用量，PGCMX显示的是perm的内存最大使用量，PGC是当前新生成的perm内存占用量，PC是但前perm内存占用量。其他的可以根据这个类推， OC是old内纯的占用量。
-
-jstat -gcnew 25917
-new对象的信息
-
-jstat -gcnewcapacity 25917
-new对象的信息及其占用量
-
-jstat -gcold 25917
-jstat -gcpermcapacity 25917
-jstat -printcompilation -h3  25917 1000 5 -h3每三行显示一下标题。
- 
-java -agentlib:hprof=cpu=samples,interval=20,depth=3 Hello
-javac -J-agentlib:hprof=cpu=times Hello.java
-javac -J-agentlib:hprof=heap=sites Hello.java
-javac -J-agentlib:hprof=heap=dump Hello.java
-
-
+U2FsdGVkX19f4XNd9mUb5kSJehLve+8Qlt89xPkT0PaLV+uroJuPQFodoWhttmG1
+4Qd0c1pfYwhmRvC2Ly/D6vDtTSh4VaY2ssmUxyYUqc7ti4GiUkskF/tngAFs630n
+bgX8kDOv6BXveFE0D4PnUrljy97PmunBRzM7N3nHoGPzqDoSn26C2bjfnnZB/Vhc
+7NwenRtfhfVAIkwgYIjcIW83gUr4KsTaZoLLO63DwF+GFpk2ZmX7wWQMONzdJMKq
+uqc6Hm0ao5ReZsmzL2Zjyr4L25fEPGeSC7uv1egQBS2tsDV6tjbWNnKppkDhhHpJ
+6r8fo6Fa76enayNK0IKlDNEmsI9BHZdT8xQ6WWul+uAqXICAjA4igjBAkSklL/Do
+/riMtWFLeVv81Bk7652A11P69bzPm7ICupXJxhdkSobmrn/7vmE3EKI1MqKtP4WN
+ZZrduZazINg3VoCJ7nmsa0dXiUqHP38g0jXnzz66HMbptGIuq4BcWtpnjJ+ROPcE
+JX9R9HTKddUtq7Io3EDJs/K+fbdjujGN8BB5yC3xzB5fJj+9a/6rlHwHPE2EtPvX
+VMb/RUrj2S2K3xCn4Glp8WbLi4UMiX4b9AqxFX1OLSlWj57//jP/pWkd8TFQwjCT
+YkH+vxIrbxGg1fmJLjcmcrpQMtSvMrjb8TVBmEBXct+I7vJyz9iMETbpMDlauMHX
+txMhDHOnmrVAtQ3gCJYMr/ulSqAh5Of4NNKcnPFbCrtgnINLi2PP4dChSXovNU7e
+TZn1PvzNox6/ElTODLATp/eI3XIeaaJiNm6EA91k2iaSUndHvQMGK+PalQMFtYxh
+Q+QYxwsFnmFpjPFPdAKeWAFNfK0rHXvyMGK5Axdj6+zg1yBy8f7KGyeBp5vopwrt
+vZ5J7N3jM4vavARDywu6bc8EFCVi7zTGRJ1IWkyehYONdPM7NxDFWB330IzwXJOl
+ZyytIkglmAi8JgvkWxlkobPy10/OyHEB2VknYf565NF2fbCXYher23u1Bt6WMXGy
+d/sQjCeFlYwg/2BKyVAYYBqMjP/69O6gjA6CIlEkWusstuV6E3WPNawYSFfG3fUd
+BHMc/Nascs9JiLgFj/ryDbUMxj6f3FwtjNuqRFugeCEwJK7DkWMZIUWJQ+s71XH8
+Dxd9AGu2WhqCJAl3wYSlzlB6MRTCUjqsMCdmYB+RBCLPV8tnFRmmoRHxFjhDD/5E
+bBJn11RkXfSFeKQRZ7G+0UWxsjApAJvj7b3VRcu3lu++PGWFLnl1XkSo4KBBsWEn
+yb6XuQaZmdWpCswy98lIzGec5t5gzZRJ2MlI/jH/NOqaGjACAFKcLk9vRJgIXFsM
+5sykSG8ukQQ3DH/WhXMH2WJEXacA7dpzkcEVoWbK44pgSsprkMgFPfzLBpCcnq4B
+7iI8UnTAdwZ1b1vuw9n37uOknVhOewveRSuFvgjW2eXkwWrYi3BwzjU3KrA5hYIs
+sCbIdjYCQC/pzhBzAwsGAnfpkHO1iXpfaBvAVFm9bwX18km9iGTQpKUpF16y8J6p
+4hgnLIVXL14xVTDhCjsRrkVv8B4Hfouhgyev0da3LeBZRiOp6pdipe4bz2sDKEv2
+lF1Qmc9A9XKSjvMy2Vdu598mmztluusqgcIid/0pZe+V3zCIAolz6ZvZECKl2T64
+UAMVaTjKCJuI3iYxoF31edftWjbXpKJSBlfu59Fgi7qk38z6OIXmcVomHdYod5vy
+dsco5bxoG00aEs3H6/vpWh31Tq0plf1QK+kYnoEp3jPUHa5I2yppDy/k66P+3tzr
+fqpUVf0B19WKCx34j8asLm6pg3YK7lb/Yisqq8B96iXacccQp4DzXggdHHvisB8R
+HNf+oM+0MxaMhd8puFVsjN2bfSTPkVIiWFCssW7vtOpg4AoE+po8VZX2fhwOJuvP
+EYsBcEKQaQPWcaap36aw5bw+nNypErgEO5cJ01iui+22tV0ms7DQbMpwc9lVd4Li
+lWCN8iYwhVJzgXWXY7a8a9kZKK1LDxZiMtMWN3n9yQQIqVcVlxBilsR/tEzOJfTC
+FS2xJBltuGdeSEWGXnGESCtrHloJ3J63/G/MRVla/jnNOJC2xKXkJKKZmiR0DWjT
+2lxcFsWAxHKw3Fcbo818o44Gvh483rfbUgXyt4LX1IvQEz6GfuOECmEDblb6f+nP
+k/mK+l3jswKOlc6WzoWV5x6FuFM1RMOVeFzkzTwsodjMj0edQsutE6fYrBnbTNlJ
+j8NKr5vV3osr+Un/8prdCD9WPq4/9G2pBmZR6mq3vvDgTndpYJ6/2ekDPcZBfEJI
+KPuwph5dPumEJg+32DKZkRc0n8wRQTrDoHv+4GqCWTUY/VYeBmrJNUtL1Euge0dk
+q3LyUpfkHd27YVF8EFf3hnhSU+Zf1i/IdCnbcPtXe94PjY7OoW5rCH6X/oVPUnic
+fM4qd8wgHUZcI75DIhGvqZdmKrVMRAYiZ9xU/Tc9MNyD5HSKyoxssBlQYYWNsYDg
+Tev34tUsJBtyPbzCk5bSquBtWupY5kKrQjJPAsh9MwlaQqW5Lb0GautlhOEQS9wg
+sPFnoBQdpm6c3fT3grVuzaxnpw17rIlGxvkLq1RhNS0cQ+q22p/uBfHYtObTtJ6k
+Ou0bzvpSmNgTtc3InN63PZhWN/XGCFXmr0/gHIUHLiey2TGD8EmzVx8RCwWW5OpG
+qnGdUyOg8TaqaEmhEMpYOKWXar+kp308pRg47iFXt7Hcc+eGgwtZaHZntvHNl4fm
+s5S9QPbCy4oSRmnVadYL5Qovas4NLyyRt40+uWSOGoFDPhQdhSGF52vmXBURdpYv
+K8wvNGZtVZgk1gNUt8hZjqSslOCum5L9H6+jP6QE8ePfQ8Kvcvu+jQ4IdR4pf+sz
+EamWjl0qM+rJOseJ3CUEZC/RyJObgFPEKSlfZPkK4UVwfBlcOGaBnfsz8rwQVu5/
+06XjD3k0HqhCCBRy802381sSi6AcheBjsEbq42+oIFIrcCshY3XAIIT10E+nEYjF
+m1hYgrDa82DnbZWkYhUPpCKwWfCbvsWiw6vRdTRwSgUdFahOYxGk1hKv+BHcfAN3
+C9BbeDZ3hUtvK5AznXrubKop0PDmX0rjNkdnOU4+GBtlE8erwxOYY7ugkGGUgc12
+XsOgcFujp4r4o2P5KVv3DutxJ9VcPRQVcck/NjGubdd8ZvF5/rwwOA==
