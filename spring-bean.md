@@ -26,7 +26,7 @@ scope="session",在WEB应用程序中，每一个实例的作用域都为session
     </tr>
 </table>
 
-spring Bean生命周期:
+### spring Bean生命周期:
 
 ![spring_singlelton](spring_singlelton.jpg)
 
